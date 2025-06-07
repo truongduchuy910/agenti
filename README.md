@@ -3,7 +3,7 @@
 ## Watch Method
 
 ```typescript
-import { watch } from "agentai";
+import { watch } from "agenti";
 
 watch({
   projects: ["/path/to/your/project"], // replace to path of your project

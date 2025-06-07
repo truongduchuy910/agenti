@@ -1,5 +1,5 @@
 {
-  "name": "agentai",
+  "name": "agenti",
   "version": "1.0.0",
   "license": "ISC",
   "main": "./dist/index.js",
@@ -30,12 +30,12 @@
   "author": "truongduchuy910",
   "repository": {
     "type": "git",
-    "url": "https://github.com/truongduchuy910/agentai.git"
+    "url": "https://github.com/truongduchuy910/agenti.git"
   },
   "bugs": {
-    "url": "https://github.com/truongduchuy910/agentai/issues"
+    "url": "https://github.com/truongduchuy910/agenti/issues"
   },
-  "homepage": "https://github.com/truongduchuy910/agentai#readme",
+  "homepage": "https://github.com/truongduchuy910/agenti#readme",
   "dependencies": {
     "chokidar": "^4.0.3",
     "rxjs": "^7.8.2"
