@@ -1,0 +1,7 @@
+.github
+node_modules
+src
+package-lock.json
+release.config.mjs
+.swcrc
+release.config.mjs

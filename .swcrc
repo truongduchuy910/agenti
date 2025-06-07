@@ -1,0 +1,30 @@
+[
+  {
+    "$schema": "https://swc.rs/schema.json",
+    "test": ".ts?$",
+    "jsc": {
+      "parser": {
+        "syntax": "typescript",
+        "tsx": false,
+        "decorators": false,
+        "dynamicImport": false
+      },
+      "transform": null,
+      "target": "es5",
+      "loose": false,
+      "externalHelpers": false,
+      "keepClassNames": false,
+      "experimental": {
+        "emitIsolatedDts": true
+      }
+    },
+    "minify": true,
+    "module": {
+      "type": "commonjs",
+      "strict": false,
+      "strictMode": false,
+      "lazy": true,
+      "noInterop": true
+    },
+  }
+]

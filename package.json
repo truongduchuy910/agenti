@@ -1,0 +1,43 @@
+{
+  "name": "agentai",
+  "version": "1.0.0",
+  "license": "ISC",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "format": "prettier --write src",
+    "build": "swc src -d dist --strip-leading-paths",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.3",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "@swc/cli": "^0.7.7",
+    "@swc/core": "^1.11.31",
+    "@types/lodash": "^4.17.17",
+    "@types/node": "^22.15.30",
+    "semantic-release": "^24.2.5"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "watch"
+  ],
+  "author": "truongduchuy910",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/truongduchuy910/agentai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/truongduchuy910/agentai/issues"
+  },
+  "homepage": "https://github.com/truongduchuy910/agentai#readme",
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "rxjs": "^7.8.2"
+  }
+}
