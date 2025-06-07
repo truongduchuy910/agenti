@@ -29,9 +29,11 @@ jobs:
         run: npm install-clean
       - name: 👌 Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
-      - name: 📦 Build package
+      - name: 📦 Build package by SWC to commonjs
         run: npm run build
-      - name: 🚀 Release
+      - name: 🧪 Test dist files output
+        run: npm run test
+      - name: 🚀 Release to NPM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

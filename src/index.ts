@@ -4,10 +4,10 @@ import { minimatch } from "minimatch";
 import path from "path";
 import fs from "fs";
 import { uniq } from "lodash";
-import chokidar from "chokidar";
+import chokidar, { type FSWatcher } from "chokidar";
 import type { AgentEvent, AgentOptions } from "./types";
 
-export function watch({ projects, wildcards }: AgentOptions): void {
+export function watch({ projects, wildcards }: AgentOptions): FSWatcher[] {
   const subject = new Subject<AgentEvent>();
   subject
     .pipe(
@@ -31,26 +31,25 @@ export function watch({ projects, wildcards }: AgentOptions): void {
     )
     .subscribe();
 
-  uniq(projects).map((project: string) => {
+  return uniq(projects).map((project: string) => {
     if (!fs.existsSync(path.join(project, ".gitignore"))) {
-      chokidar
+      return chokidar
         .watch(project, {})
         .on("all", (event, path) => subject.next({ event, path, project }));
-    } else {
-      const gitignore = fs.readFileSync(
-        path.join(project, ".gitignore"),
-        "utf8",
-      );
-      const ig = ignore().add(gitignore);
-      chokidar
-        .watch(project, {
-          ignored: (current) => {
-            const relative = path.relative(project, current);
-            if (relative.startsWith(".")) return true;
-            return relative.length ? ig.ignores(relative) : false;
-          },
-        })
-        .on("all", (event, path) => subject.next({ event, path, project }));
     }
+
+    // read and ignore files
+    const gitignore = fs.readFileSync(path.join(project, ".gitignore"), "utf8");
+    const ig = ignore().add(gitignore);
+
+    return chokidar
+      .watch(project, {
+        ignored: (current) => {
+          const relative = path.relative(project, current);
+          if (relative.startsWith(".")) return true;
+          return relative.length ? ig.ignores(relative) : false;
+        },
+      })
+      .on("all", (event, path) => subject.next({ event, path, project }));
   });
 }

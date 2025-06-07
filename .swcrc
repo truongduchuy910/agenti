@@ -23,8 +23,8 @@
       "type": "commonjs",
       "strict": false,
       "strictMode": false,
-      "lazy": true,
-      "noInterop": true
+      "lazy": false,
+      "noInterop": false
     },
   }
 ]
