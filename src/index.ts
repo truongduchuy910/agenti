@@ -7,8 +7,12 @@ import { uniq } from "lodash";
 import chokidar, { type FSWatcher } from "chokidar";
 import type { AgentEvent, AgentOptions } from "./types";
 
-export function watch({ projects, wildcards }: AgentOptions): FSWatcher[] {
-  const subject = new Subject<AgentEvent>();
+export function watch({
+  projects,
+  wildcards,
+  subject,
+}: AgentOptions): FSWatcher[] {
+  if (!subject) subject = new Subject<AgentEvent>();
   subject
     .pipe(
       concatMap((event) =>
@@ -16,13 +20,12 @@ export function watch({ projects, wildcards }: AgentOptions): FSWatcher[] {
           filter((wildcard) => minimatch(event.path, wildcard.condition)),
           concatMap((wildcard) => {
             const relative = path.relative(event.project, event.path);
-            const parsed = path.parse(relative);
 
             return from(
               wildcard.processor({
                 data: { wildcard, event },
                 relative,
-                parse: parsed,
+                parse: path.parse(relative),
               }),
             );
           }),
@@ -31,7 +34,7 @@ export function watch({ projects, wildcards }: AgentOptions): FSWatcher[] {
     )
     .subscribe();
 
-  return uniq(projects).map((project: string) => {
+  return uniq(projects).map((project) => {
     if (!fs.existsSync(path.join(project, ".gitignore"))) {
       return chokidar
         .watch(project, {})

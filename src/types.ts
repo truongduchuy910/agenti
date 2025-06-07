@@ -1,3 +1,5 @@
+import { type Subject } from "rxjs";
+
 export interface AgentWildcard {
   name: string;
   condition: string;
@@ -7,6 +9,7 @@ export interface AgentWildcard {
 export interface AgentOptions {
   projects: string[];
   wildcards: AgentWildcard[];
+  subject?: Subject<AgentEvent>;
 }
 
 export interface AgentEvent {
